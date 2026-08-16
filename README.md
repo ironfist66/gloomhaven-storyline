@@ -93,4 +93,18 @@ If everything is working correctly you can visit the tracker locally on: `https:
 
 After changes are made, open a Pull Request into the develop branch for review. 
 
+## Run with Docker
+
+The app is a static frontend with no server-side code of its own, so it can also be built and served from a container instead of Valet:
+
+```bash
+docker compose up -d --build
+```
+
+This builds the Frosthaven bundle with the pinned Node version and serves it via nginx on `http://localhost:8080`. To point the build at your own public URLs, set `MIX_WEB_URL`, `MIX_APP_URL`, `MIX_API_URL`, `MIX_CDN_URL` and/or `MIX_VIRTUAL_BOARD_URL` in a local `.env` file (read by `docker compose` for `${...}` interpolation in `docker-compose.yml`) before building. To build the Gloomhaven variant instead, override the build arg: `docker compose build --build-arg MIX_MAIN_GAME=gh`.
+
+Note that all `MIX_*` values are compiled into the JS bundle at build time (Laravel Mix), so changing any of them requires rebuilding the image, not just restarting the container.
+
+See [docs/DOCKER.md](docs/DOCKER.md) for the update workflow (syncing from upstream, rebuilding, tagging, rollback) and a full config/troubleshooting reference.
+
 All content remains under creative commons license BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/)

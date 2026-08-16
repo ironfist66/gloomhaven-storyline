@@ -9,12 +9,22 @@ Gloomhaven Storyline is a Vue 2 single-page application for tracking Gloomhaven 
 ## Development Commands
 
 ### Setup
+Requires Node v16.14.2 (pinned in `.nvmrc`).
 ```bash
 npm install
 cp .env.example .env
 # Edit .env: set MIX_WEB_URL and MIX_APP_URL to local dev domain
 valet link  # or use alternative local server
 ```
+
+Open PRs against the `develop` branch, not `master`.
+
+### Docker
+The app has no server-side code of its own (no PHP/Laravel backend in this repo) — it's a pure static frontend, so it can be built and served from a container as an alternative to Valet:
+```bash
+docker compose up -d --build   # serves the Frosthaven build on http://localhost:8080
+```
+`Dockerfile` builds with the pinned Node version, then copies the compiled `public/` into an nginx image. All `MIX_*` vars are inlined into the JS bundle at build time by Laravel Mix (see `docker-compose.yml` build args) — changing one requires a rebuild, not a restart.
 
 ### Build
 ```bash

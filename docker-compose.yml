@@ -1,0 +1,15 @@
+services:
+  storyline:
+    build:
+      context: .
+      args:
+        MIX_MAIN_GAME: fh
+        MIX_WEB_URL: ${MIX_WEB_URL:-}
+        MIX_APP_URL: ${MIX_APP_URL:-}
+        MIX_API_URL: ${MIX_API_URL:-}
+        MIX_CDN_URL: ${MIX_CDN_URL:-}
+        MIX_VIRTUAL_BOARD_URL: ${MIX_VIRTUAL_BOARD_URL:-}
+    image: gloomhaven-storyline:fh
+    ports:
+      - "8080:80"
+    restart: unless-stopped

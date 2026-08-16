@@ -1,0 +1,12 @@
+.git
+.gitignore
+node_modules
+public
+cypress
+cypress.config.js
+.env
+npm-debug.log
+.idea
+.vscode
+.DS_Store
+CLAUDE.md
